@@ -1,4 +1,5 @@
 
+
 // CSC Scoreboard Control V2
 
 let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
