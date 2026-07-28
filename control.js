@@ -1,5 +1,5 @@
 
-// CSC Scoreboard Control V1
+// CSC Scoreboard Control V2
 
 let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
     homeTeam: "HOME",
@@ -10,15 +10,45 @@ let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
     status: "1ST HALF"
 };
 
-function updateDisplay() {
-    document.getElementById("homeScore").textContent = scoreboard.homeScore;
-    document.getElementById("awayScore").textContent = scoreboard.awayScore;
-}
+let seconds = 0;
+let timerRunning = false;
+let timerInterval = null;
 
 function save() {
     localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
-    updateDisplay();
 }
+
+function updateTimer() {
+    const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const secs = String(seconds % 60).padStart(2, "0");
+
+    scoreboard.timer = `${mins}:${secs}`;
+    save();
+}
+
+window.startTimer = function () {
+    if (timerRunning) return;
+
+    timerRunning = true;
+
+    timerInterval = setInterval(() => {
+        seconds++;
+        updateTimer();
+    }, 1000);
+};
+
+window.pauseTimer = function () {
+    timerRunning = false;
+    clearInterval(timerInterval);
+};
+
+window.resetTimer = function () {
+    timerRunning = false;
+    clearInterval(timerInterval);
+
+    seconds = 0;
+    updateTimer();
+};
 
 window.updateTeams = function () {
     scoreboard.homeTeam = document.getElementById("homeTeam").value || "HOME";
@@ -32,9 +62,7 @@ window.homePlus = function () {
 };
 
 window.homeMinus = function () {
-    if (scoreboard.homeScore > 0) {
-        scoreboard.homeScore--;
-    }
+    if (scoreboard.homeScore > 0) scoreboard.homeScore--;
     save();
 };
 
@@ -44,9 +72,7 @@ window.awayPlus = function () {
 };
 
 window.awayMinus = function () {
-    if (scoreboard.awayScore > 0) {
-        scoreboard.awayScore--;
-    }
+    if (scoreboard.awayScore > 0) scoreboard.awayScore--;
     save();
 };
 
@@ -55,6 +81,4 @@ window.setStatus = function(status) {
     save();
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    updateDisplay();
-});
+save();
