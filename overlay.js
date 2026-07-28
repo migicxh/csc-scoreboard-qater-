@@ -1,7 +1,7 @@
 
-// CSC Scoreboard Overlay V3
+// CSC Broadcast Overlay V4
 
-let goalShowing = false;
+let goalVisible = false;
 
 function loadScoreboard() {
 
@@ -9,44 +9,58 @@ function loadScoreboard() {
 
     if (!data) return;
 
+    // Teams
     document.getElementById("homeTeam").textContent = data.homeTeam || "HOME";
     document.getElementById("awayTeam").textContent = data.awayTeam || "AWAY";
 
+    // Score
     document.getElementById("homeScore").textContent = data.homeScore ?? 0;
     document.getElementById("awayScore").textContent = data.awayScore ?? 0;
 
+    // Timer
     document.getElementById("timer").textContent = data.timer || "00:00";
 
+    // Match Status
     document.getElementById("matchStatus").textContent = data.status || "1ST HALF";
 
-    const banner = document.getElementById("goalBanner");
+    // Goal Banner
+    const goalBanner = document.getElementById("goalBanner");
 
-    if (data.goal && !goalShowing) {
-        goalShowing = true;
-        banner.style.display = "block";
-        banner.style.opacity = "1";
+    if (data.goal === true && !goalVisible) {
+
+        goalVisible = true;
+
+        goalBanner.style.display = "block";
+        goalBanner.style.opacity = "1";
+
     }
 
-    if (!data.goal && goalShowing) {
-        goalShowing = false;
-        banner.style.opacity = "0";
+    if (data.goal === false && goalVisible) {
+
+        goalVisible = false;
+
+        goalBanner.style.opacity = "0";
 
         setTimeout(() => {
-            banner.style.display = "none";
-        }, 300);
+
+            goalBanner.style.display = "none";
+
+        },300);
+
     }
+
 }
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const banner = document.getElementById("goalBanner");
+    const goalBanner = document.getElementById("goalBanner");
 
-    banner.style.display = "none";
-    banner.style.opacity = "0";
-    banner.style.transition = "opacity 0.3s ease";
+    goalBanner.style.display = "none";
+    goalBanner.style.opacity = "0";
+    goalBanner.style.transition = "opacity .3s ease";
 
     loadScoreboard();
 
-    setInterval(loadScoreboard, 100);
+    setInterval(loadScoreboard,100);
 
 });
