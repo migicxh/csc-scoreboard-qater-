@@ -1,5 +1,5 @@
 
-// CSC Broadcast Overlay V4
+// CSC Broadcast Overlay V5
 
 let goalVisible = false;
 
@@ -9,19 +9,31 @@ function loadScoreboard() {
 
     if (!data) return;
 
+    // Competition Title
+    document.getElementById("competitionTitle").textContent =
+        data.competition || "CSC PREMIER LEAGUE";
+
     // Teams
-    document.getElementById("homeTeam").textContent = data.homeTeam || "HOME";
-    document.getElementById("awayTeam").textContent = data.awayTeam || "AWAY";
+    document.getElementById("homeTeam").textContent =
+        data.homeTeam || "HOME";
+
+    document.getElementById("awayTeam").textContent =
+        data.awayTeam || "AWAY";
 
     // Score
-    document.getElementById("homeScore").textContent = data.homeScore ?? 0;
-    document.getElementById("awayScore").textContent = data.awayScore ?? 0;
+    document.getElementById("homeScore").textContent =
+        data.homeScore ?? 0;
+
+    document.getElementById("awayScore").textContent =
+        data.awayScore ?? 0;
 
     // Timer
-    document.getElementById("timer").textContent = data.timer || "00:00";
+    document.getElementById("timer").textContent =
+        data.timer || "00:00";
 
     // Match Status
-    document.getElementById("matchStatus").textContent = data.status || "1ST HALF";
+    document.getElementById("matchStatus").textContent =
+        data.status || "1ST HALF";
 
     // Goal Banner
     const goalBanner = document.getElementById("goalBanner");
@@ -42,10 +54,8 @@ function loadScoreboard() {
         goalBanner.style.opacity = "0";
 
         setTimeout(() => {
-
             goalBanner.style.display = "none";
-
-        },300);
+        }, 300);
 
     }
 
@@ -61,6 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadScoreboard();
 
-    setInterval(loadScoreboard,100);
+    setInterval(loadScoreboard, 100);
 
 });
