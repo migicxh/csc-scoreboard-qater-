@@ -45,6 +45,7 @@ button{
 .green{background:#28a745;color:white;}
 .red{background:#dc3545;color:white;}
 .blue{background:#0d6efd;color:white;}
+.orange{background:#ff9800;color:white;}
 
 .score{
     font-size:26px;
@@ -75,17 +76,13 @@ button{
 
 <div class="score">
 HOME
-
 <button class="green" onclick="homePlus()">+</button>
-
 <button class="red" onclick="homeMinus()">-</button>
 </div>
 
 <div class="score">
 AWAY
-
 <button class="green" onclick="awayPlus()">+</button>
-
 <button class="red" onclick="awayMinus()">-</button>
 </div>
 
@@ -94,10 +91,14 @@ AWAY
 <h2>Timer</h2>
 
 <button class="green" onclick="startTimer()">▶ Start</button>
-
 <button class="blue" onclick="pauseTimer()">⏸ Pause</button>
-
 <button class="red" onclick="resetTimer()">↺ Reset</button>
+
+<hr>
+
+<h2>Goal Animation</h2>
+
+<button class="orange" onclick="showGoal()">⚽ GOAL</button>
 
 <hr>
 
