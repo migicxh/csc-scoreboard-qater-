@@ -1,7 +1,8 @@
 
-// CSC Scoreboard Control V3
+// CSC Scoreboard Control V4
 
 let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
+    competition: "CSC PREMIER LEAGUE",
     homeTeam: "HOME",
     awayTeam: "AWAY",
     homeScore: 0,
@@ -15,10 +16,12 @@ let seconds = 0;
 let timerRunning = false;
 let timerInterval = null;
 
+// Save to localStorage
 function save() {
     localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
 }
 
+// Timer
 function updateTimer() {
     const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
     const secs = String(seconds % 60).padStart(2, "0");
@@ -51,12 +54,25 @@ window.resetTimer = function () {
     updateTimer();
 };
 
-window.updateTeams = function () {
-    scoreboard.homeTeam = document.getElementById("homeTeam").value || "HOME";
-    scoreboard.awayTeam = document.getElementById("awayTeam").value || "AWAY";
+// Competition
+window.updateCompetition = function () {
+    scoreboard.competition =
+        document.getElementById("competition").value || "CSC PREMIER LEAGUE";
     save();
 };
 
+// Teams
+window.updateTeams = function () {
+    scoreboard.homeTeam =
+        document.getElementById("homeTeam").value || "HOME";
+
+    scoreboard.awayTeam =
+        document.getElementById("awayTeam").value || "AWAY";
+
+    save();
+};
+
+// Score
 window.homePlus = function () {
     scoreboard.homeScore++;
     save();
@@ -77,11 +93,13 @@ window.awayMinus = function () {
     save();
 };
 
+// Match Status
 window.setStatus = function(status) {
     scoreboard.status = status;
     save();
 };
 
+// Goal Animation
 window.showGoal = function () {
     scoreboard.goal = true;
     save();
@@ -92,4 +110,5 @@ window.showGoal = function () {
     }, 3000);
 };
 
+// Initialize
 save();
