@@ -1,7 +1,7 @@
 
 // CSC Scoreboard Control V1
 
-let scoreboard = {
+let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
     homeTeam: "HOME",
     awayTeam: "AWAY",
     homeScore: 0,
@@ -10,8 +10,14 @@ let scoreboard = {
     status: "1ST HALF"
 };
 
+function updateDisplay() {
+    document.getElementById("homeScore").textContent = scoreboard.homeScore;
+    document.getElementById("awayScore").textContent = scoreboard.awayScore;
+}
+
 function save() {
     localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+    updateDisplay();
 }
 
 window.updateTeams = function () {
@@ -26,7 +32,9 @@ window.homePlus = function () {
 };
 
 window.homeMinus = function () {
-    if (scoreboard.homeScore > 0) scoreboard.homeScore--;
+    if (scoreboard.homeScore > 0) {
+        scoreboard.homeScore--;
+    }
     save();
 };
 
@@ -36,7 +44,9 @@ window.awayPlus = function () {
 };
 
 window.awayMinus = function () {
-    if (scoreboard.awayScore > 0) scoreboard.awayScore--;
+    if (scoreboard.awayScore > 0) {
+        scoreboard.awayScore--;
+    }
     save();
 };
 
@@ -45,4 +55,6 @@ window.setStatus = function(status) {
     save();
 };
 
-save();
+document.addEventListener("DOMContentLoaded", () => {
+    updateDisplay();
+});
