@@ -1,7 +1,5 @@
 
-
-
-// CSC Scoreboard Control V2
+// CSC Scoreboard Control V3
 
 let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
     homeTeam: "HOME",
@@ -9,7 +7,8 @@ let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
     homeScore: 0,
     awayScore: 0,
     timer: "00:00",
-    status: "1ST HALF"
+    status: "1ST HALF",
+    goal: false
 };
 
 let seconds = 0;
@@ -81,6 +80,16 @@ window.awayMinus = function () {
 window.setStatus = function(status) {
     scoreboard.status = status;
     save();
+};
+
+window.showGoal = function () {
+    scoreboard.goal = true;
+    save();
+
+    setTimeout(() => {
+        scoreboard.goal = false;
+        save();
+    }, 3000);
 };
 
 save();
