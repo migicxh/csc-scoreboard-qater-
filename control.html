@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>CSC Scoreboard Control</title>
 
 <style>
@@ -48,7 +47,7 @@ button{
 .blue{background:#0d6efd;color:white;}
 
 .score{
-    font-size:34px;
+    font-size:26px;
     margin:20px 0;
 }
 </style>
@@ -68,43 +67,36 @@ button{
 
 <br><br>
 
-<button class="blue">Update Teams</button>
+<button class="blue" onclick="updateTeams()">Update Teams</button>
 
 <hr>
 
 <h2>Score</h2>
 
 <div class="score">
-
 HOME
 
-<button class="green">+</button>
+<button class="green" onclick="homePlus()">+</button>
 
-<button class="red">-</button>
-
-<span id="homeScore">0</span>
-
+<button class="red" onclick="homeMinus()">-</button>
 </div>
 
 <div class="score">
-
 AWAY
 
-<button class="green">+</button>
+<button class="green" onclick="awayPlus()">+</button>
 
-<button class="red">-</button>
-
-<span id="awayScore">0</span>
-
+<button class="red" onclick="awayMinus()">-</button>
 </div>
 
 <hr>
 
-<h2>Match</h2>
+<h2>Match Status</h2>
 
-<button>Start Timer</button>
-<button>Pause Timer</button>
-<button>Reset Timer</button>
+<button onclick="setStatus('1ST HALF')">1ST HALF</button>
+<button onclick="setStatus('HALFTIME')">HALFTIME</button>
+<button onclick="setStatus('2ND HALF')">2ND HALF</button>
+<button onclick="setStatus('FULLTIME')">FULLTIME</button>
 
 </div>
 
