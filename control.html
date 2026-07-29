@@ -7,115 +7,177 @@
 <title>CSC Scoreboard Control</title>
 
 <style>
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    padding:30px;
+    padding:10px;
     background:#202124;
-    color:white;
+    color:#fff;
     font-family:Arial,Helvetica,sans-serif;
 }
 
 h1{
-    margin-bottom:25px;
+    margin:0 0 12px;
+    text-align:center;
+    font-size:24px;
 }
 
 .panel{
     background:#2b2b2b;
-    padding:20px;
     border-radius:12px;
-    max-width:700px;
+    padding:15px;
+    max-width:900px;
+    margin:auto;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.section{
+    background:#383838;
+    border-radius:10px;
+    padding:10px;
+}
+
+.section.full{
+    grid-column:1 / -1;
+}
+
+h2{
+    margin:0 0 8px;
+    font-size:17px;
 }
 
 input{
-    width:250px;
-    padding:10px;
-    font-size:18px;
-    margin:5px;
+    width:100%;
+    padding:8px;
+    font-size:15px;
+    margin-bottom:8px;
 }
 
 button{
-    padding:10px 18px;
-    margin:5px;
-    font-size:18px;
-    cursor:pointer;
+    padding:8px 12px;
+    margin:3px;
+    font-size:15px;
     border:none;
     border-radius:8px;
+    cursor:pointer;
 }
 
-.green{background:#28a745;color:white;}
-.red{background:#dc3545;color:white;}
-.blue{background:#0d6efd;color:white;}
-.orange{background:#ff9800;color:white;}
+.green{background:#28a745;color:#fff;}
+.red{background:#dc3545;color:#fff;}
+.blue{background:#0d6efd;color:#fff;}
+.orange{background:#ff9800;color:#fff;}
 
-.score{
-    font-size:26px;
-    margin:20px 0;
+.scoreRow{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+@media (max-width:700px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .section.full{
+        grid-column:auto;
+    }
 }
 </style>
 
 </head>
-
 <body>
 
 <h1>CSC Scoreboard Control</h1>
 
 <div class="panel">
 
+<div class="grid">
+
+<div class="section full">
 <h2>Competition</h2>
 
 <input id="competition" placeholder="CSC PREMIER LEAGUE">
 
 <button class="blue" onclick="updateCompetition()">Update Competition</button>
+</div>
 
-<hr>
-
-<h2>Teams</h2>
+<div class="section">
+<h2>Home Team</h2>
 
 <input id="homeTeam" placeholder="Home Team">
-<input id="awayTeam" placeholder="Away Team">
-
-<br><br>
 
 <button class="blue" onclick="updateTeams()">Update Teams</button>
+</div>
 
-<hr>
+<div class="section">
+<h2>Away Team</h2>
 
-<h2>Score</h2>
+<input id="awayTeam" placeholder="Away Team">
 
-<div class="score">
-HOME
+<button class="blue" onclick="updateTeams()">Update Teams</button>
+</div>
+
+<div class="section">
+<h2>Home Score</h2>
+
+<div class="controls">
 <button class="green" onclick="homePlus()">+</button>
-<button class="red" onclick="homeMinus()">-</button>
+<button class="red" onclick="homeMinus()">−</button>
+</div>
 </div>
 
-<div class="score">
-AWAY
+<div class="section">
+<h2>Away Score</h2>
+
+<div class="controls">
 <button class="green" onclick="awayPlus()">+</button>
-<button class="red" onclick="awayMinus()">-</button>
+<button class="red" onclick="awayMinus()">−</button>
+</div>
 </div>
 
-<hr>
-
+<div class="section full">
 <h2>Timer</h2>
 
+<div class="controls">
 <button class="green" onclick="startTimer()">▶ Start</button>
 <button class="blue" onclick="pauseTimer()">⏸ Pause</button>
 <button class="red" onclick="resetTimer()">↺ Reset</button>
+</div>
+</div>
 
-<hr>
-
-<h2>Goal Animation</h2>
+<div class="section">
+<h2>Goal</h2>
 
 <button class="orange" onclick="showGoal()">⚽ GOAL</button>
+</div>
 
-<hr>
-
+<div class="section">
 <h2>Match Status</h2>
 
-<button onclick="setStatus('1ST HALF')">1ST HALF</button>
-<button onclick="setStatus('HALFTIME')">HALFTIME</button>
-<button onclick="setStatus('2ND HALF')">2ND HALF</button>
-<button onclick="setStatus('FULLTIME')">FULLTIME</button>
+<div class="controls">
+<button onclick="setStatus('1ST HALF')">1ST</button>
+<button onclick="setStatus('HALFTIME')">HT</button>
+<button onclick="setStatus('2ND HALF')">2ND</button>
+<button onclick="setStatus('FULLTIME')">FT</button>
+</div>
+</div>
+
+</div>
 
 </div>
 
