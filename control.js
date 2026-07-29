@@ -4,6 +4,9 @@
 // control.js
 // ===============================
 
+let timerInterval = null;
+let seconds = 0;
+
 let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
 
     competition: "VRFS WORLD CUP",
@@ -30,6 +33,21 @@ let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
 
 };
 
+// Restore timer if it already has a value
+if (scoreboard.timer) {
+
+    const parts = scoreboard.timer.split(":");
+
+    if (parts.length === 2) {
+
+        seconds =
+            (parseInt(parts[0]) || 0) * 60 +
+            (parseInt(parts[1]) || 0);
+
+    }
+
+}
+
 function save(){
 
     localStorage.setItem(
@@ -38,6 +56,60 @@ function save(){
     );
 
 }
+
+function formatTime(){
+
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+
+    scoreboard.timer =
+        String(mins).padStart(2,"0") +
+        ":" +
+        String(secs).padStart(2,"0");
+
+    save();
+
+}
+
+// ===================
+// TIMER
+// ===================
+
+function startTimer(){
+
+    if(timerInterval) return;
+
+    timerInterval = setInterval(()=>{
+
+        seconds++;
+
+        formatTime();
+
+    },1000);
+
+}
+
+function pauseTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+}
+
+function resetTimer(){
+
+    pauseTimer();
+
+    seconds = 0;
+
+    formatTime();
+
+}
+
+// ===================
+// COMPETITION
+// ===================
 
 function updateCompetition(){
 
@@ -53,6 +125,10 @@ function updateCompetition(){
     }
 
 }
+
+// ===================
+// TEAMS
+// ===================
 
 function updateTeams(){
 
@@ -72,6 +148,10 @@ function updateTeams(){
 
 }
 
+// ===================
+// HOME SCORE
+// ===================
+
 function homePlus(){
 
     scoreboard.homeScore++;
@@ -88,6 +168,10 @@ function homeMinus(){
     save();
 
 }
+
+// ===================
+// AWAY SCORE
+// ===================
 
 function awayPlus(){
 
@@ -106,6 +190,10 @@ function awayMinus(){
 
 }
 
+// ===================
+// MATCH STATUS
+// ===================
+
 function setStatus(status){
 
     scoreboard.status = status;
@@ -113,6 +201,10 @@ function setStatus(status){
     save();
 
 }
+
+// ===================
+// GOAL
+// ===================
 
 function showGoal(){
 
@@ -130,7 +222,11 @@ function showGoal(){
 
 }
 
+// ===================
+
 window.onload=()=>{
+
+    formatTime();
 
     save();
 
