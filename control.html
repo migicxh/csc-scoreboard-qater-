@@ -1,117 +1,8 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSC Scoreboard Control</title>
-
-<style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    padding:10px;
-    background:#202124;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-h1{
-    margin:0 0 12px;
-    text-align:center;
-    font-size:24px;
-}
-
-.panel{
-    background:#2b2b2b;
-    border-radius:12px;
-    padding:15px;
-    max-width:900px;
-    margin:auto;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.section{
-    background:#383838;
-    border-radius:10px;
-    padding:10px;
-}
-
-.section.full{
-    grid-column:1 / -1;
-}
-
-h2{
-    margin:0 0 8px;
-    font-size:17px;
-}
-
-input{
-    width:100%;
-    padding:8px;
-    font-size:15px;
-    margin-bottom:8px;
-}
-
-button{
-    padding:8px 12px;
-    margin:3px;
-    font-size:15px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-.green{background:#28a745;color:#fff;}
-.red{background:#dc3545;color:#fff;}
-.blue{background:#0d6efd;color:#fff;}
-.orange{background:#ff9800;color:#fff;}
-
-.scoreRow{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:8px;
-}
-
-.controls{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-}
-
-@media (max-width:700px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .section.full{
-        grid-column:auto;
-    }
-}
-</style>
-
-</head>
-<body>
-
-<h1>CSC Scoreboard Control</h1>
-
-<div class="panel">
-
-<div class="grid">
-
 <div class="section full">
 <h2>Competition</h2>
 
-<input id="competition" placeholder="CSC PREMIER LEAGUE">
+<input id="competition" placeholder="VRFS WORLD CUP">
 
 <button class="blue" onclick="updateCompetition()">Update Competition</button>
 </div>
@@ -130,6 +21,56 @@ button{
 <input id="awayTeam" placeholder="Away Team">
 
 <button class="blue" onclick="updateTeams()">Update Teams</button>
+</div>
+
+<div class="section">
+<h2>Tournament Logo</h2>
+
+<input
+id="tournamentLogo"
+placeholder="images/vrfs-logo.png">
+
+<button class="blue" onclick="updateTournamentLogo()">
+Update Logo
+</button>
+</div>
+
+<div class="section">
+<h2>Home Logo</h2>
+
+<input
+id="homeLogo"
+placeholder="images/home.png">
+
+<button class="blue" onclick="updateHomeLogo()">
+Update Logo
+</button>
+</div>
+
+<div class="section">
+<h2>Away Logo</h2>
+
+<input
+id="awayLogo"
+placeholder="images/away.png">
+
+<button class="blue" onclick="updateAwayLogo()">
+Update Logo
+</button>
+</div>
+
+<div class="section">
+<h2>Added Time</h2>
+
+<input
+id="addedTime"
+placeholder="+5">
+
+<button
+class="orange"
+onclick="updateAddedTime()">
+Update
+</button>
 </div>
 
 <div class="section">
@@ -163,7 +104,9 @@ button{
 <div class="section">
 <h2>Goal</h2>
 
-<button class="orange" onclick="showGoal()">⚽ GOAL</button>
+<button class="orange" onclick="showGoal()">
+⚽ GOAL
+</button>
 </div>
 
 <div class="section">
@@ -176,12 +119,3 @@ button{
 <button onclick="setStatus('FULLTIME')">FT</button>
 </div>
 </div>
-
-</div>
-
-</div>
-
-<script src="control.js"></script>
-
-</body>
-</html>
