@@ -1,5 +1,8 @@
 
-// CSC Broadcast Overlay V5
+// ===============================
+// VRFS WORLD CUP OVERLAY
+// Complete Replacement - overlay.js
+// ===============================
 
 let goalVisible = false;
 
@@ -9,9 +12,9 @@ function loadScoreboard() {
 
     if (!data) return;
 
-    // Competition Title
+    // Tournament
     document.getElementById("competitionTitle").textContent =
-        data.competition || "CSC PREMIER LEAGUE";
+        data.competition || "VRFS WORLD CUP";
 
     // Teams
     document.getElementById("homeTeam").textContent =
@@ -35,27 +38,64 @@ function loadScoreboard() {
     document.getElementById("matchStatus").textContent =
         data.status || "1ST HALF";
 
+    // Added Time
+    const addedTime = document.getElementById("addedTime");
+
+    if (addedTime) {
+        addedTime.textContent = data.addedTime || "+0";
+    }
+
+    // Team Logos (future support)
+    const homeLogo = document.getElementById("homeLogo");
+    const awayLogo = document.getElementById("awayLogo");
+
+    if (homeLogo && data.homeLogo) {
+        homeLogo.src = data.homeLogo;
+    }
+
+    if (awayLogo && data.awayLogo) {
+        awayLogo.src = data.awayLogo;
+    }
+
+    // Tournament Logo (future support)
+    const vrfsLogo = document.getElementById("vrfsLogo");
+
+    if (vrfsLogo && data.tournamentLogo) {
+        vrfsLogo.src = data.tournamentLogo;
+    }
+
     // Goal Banner
     const goalBanner = document.getElementById("goalBanner");
 
-    if (data.goal === true && !goalVisible) {
+    if (goalBanner) {
 
-        goalVisible = true;
+        if (data.goal === true && !goalVisible) {
 
-        goalBanner.style.display = "block";
-        goalBanner.style.opacity = "1";
+            goalVisible = true;
 
-    }
+            goalBanner.style.display = "block";
 
-    if (data.goal === false && goalVisible) {
+            requestAnimationFrame(() => {
+                goalBanner.style.opacity = "1";
+                goalBanner.style.transform =
+                    "translateX(-50%) translateY(0)";
+            });
 
-        goalVisible = false;
+        }
 
-        goalBanner.style.opacity = "0";
+        if (data.goal === false && goalVisible) {
 
-        setTimeout(() => {
-            goalBanner.style.display = "none";
-        }, 300);
+            goalVisible = false;
+
+            goalBanner.style.opacity = "0";
+            goalBanner.style.transform =
+                "translateX(-50%) translateY(-20px)";
+
+            setTimeout(() => {
+                goalBanner.style.display = "none";
+            }, 300);
+
+        }
 
     }
 
@@ -65,9 +105,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const goalBanner = document.getElementById("goalBanner");
 
-    goalBanner.style.display = "none";
-    goalBanner.style.opacity = "0";
-    goalBanner.style.transition = "opacity .3s ease";
+    if (goalBanner) {
+
+        goalBanner.style.display = "none";
+        goalBanner.style.opacity = "0";
+        goalBanner.style.transform =
+            "translateX(-50%) translateY(-20px)";
+        goalBanner.style.transition =
+            "opacity .3s ease, transform .3s ease";
+
+    }
 
     loadScoreboard();
 
