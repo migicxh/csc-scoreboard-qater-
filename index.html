@@ -5,14 +5,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CSC Broadcast Overlay</title>
+<title>VRFS World Cup Overlay</title>
 
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="competitionTitle">CSC PREMIER LEAGUE</div>
+<div id="topBar">
+
+    <div id="competitionArea">
+        <div id="competitionTitle">VRFS WORLD CUP</div>
+    </div>
+
+    <div id="logoArea">
+        <img id="vrfsLogo" src="vrfs-logo.png" alt="VRFS">
+    </div>
+
+</div>
 
 <div id="scoreboard">
 
@@ -22,7 +32,7 @@
 
     <div class="scoreBox">
         <span id="homeScore">0</span>
-        <span>-</span>
+        <span class="dash">-</span>
         <span id="awayScore">0</span>
     </div>
 
@@ -33,8 +43,11 @@
 </div>
 
 <div id="matchInfo">
+
     <div id="timer">00:00</div>
+
     <div id="matchStatus">1ST HALF</div>
+
 </div>
 
 <div id="goalBanner">⚽ GOAL!</div>
