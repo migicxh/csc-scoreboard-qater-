@@ -1,54 +1,54 @@
 
-// ===============================
+// ========================================
 // VRFS WORLD CUP CONTROL
-// control.js
-// ===============================
+// Complete control.js
+// ========================================
 
 let timerInterval = null;
 let seconds = 0;
 
-let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || {
+let scoreboard = JSON.parse(localStorage.getItem("scoreboard"));
 
-    competition: "VRFS WORLD CUP",
+if (!scoreboard) {
 
-    homeTeam: "HOME",
-    awayTeam: "AWAY",
+    scoreboard = {
+        competition: "VRFS WORLD CUP",
 
-    homeScore: 0,
-    awayScore: 0,
+        homeTeam: "HOME",
+        awayTeam: "AWAY",
 
-    timer: "00:00",
+        homeScore: 0,
+        awayScore: 0,
 
-    status: "1ST HALF",
+        timer: "00:00",
+        status: "1ST HALF",
 
-    addedTime: "+0",
+        addedTime: "",
 
-    goal: false,
+        goal: false,
 
-    tournamentLogo: "vrfs-logo.png",
+        tournamentLogo: "",
+        homeLogo: "",
+        awayLogo: ""
+    };
 
-    homeLogo: "vrfs-logo.png",
+}
 
-    awayLogo: "vrfs-logo.png"
-
-};
-
-// Restore timer if it already has a value
 if (scoreboard.timer) {
 
-    const parts = scoreboard.timer.split(":");
+    let parts = scoreboard.timer.split(":");
 
     if (parts.length === 2) {
 
         seconds =
-            (parseInt(parts[0]) || 0) * 60 +
-            (parseInt(parts[1]) || 0);
+            (parseInt(parts[0]) * 60) +
+            parseInt(parts[1]);
 
     }
 
 }
 
-function save(){
+function save() {
 
     localStorage.setItem(
         "scoreboard",
@@ -57,39 +57,39 @@ function save(){
 
 }
 
-function formatTime(){
+function updateDisplayTime() {
 
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
+    let minutes = Math.floor(seconds / 60);
+    let secs = seconds % 60;
 
     scoreboard.timer =
-        String(mins).padStart(2,"0") +
+        String(minutes).padStart(2, "0") +
         ":" +
-        String(secs).padStart(2,"0");
+        String(secs).padStart(2, "0");
 
     save();
 
 }
 
-// ===================
+// ========================
 // TIMER
-// ===================
+// ========================
 
-function startTimer(){
+function startTimer() {
 
-    if(timerInterval) return;
+    if (timerInterval) return;
 
-    timerInterval = setInterval(()=>{
+    timerInterval = setInterval(function () {
 
         seconds++;
 
-        formatTime();
+        updateDisplayTime();
 
-    },1000);
+    }, 1000);
 
 }
 
-function pauseTimer(){
+function pauseTimer() {
 
     clearInterval(timerInterval);
 
@@ -97,62 +97,50 @@ function pauseTimer(){
 
 }
 
-function resetTimer(){
+function resetTimer() {
 
     pauseTimer();
 
     seconds = 0;
 
-    formatTime();
+    updateDisplayTime();
 
 }
 
-// ===================
+// ========================
 // COMPETITION
-// ===================
+// ========================
 
-function updateCompetition(){
+function updateCompetition() {
 
-    const input =
-        document.getElementById("competition");
-
-    if(input){
-
-        scoreboard.competition = input.value;
-
-        save();
-
-    }
-
-}
-
-// ===================
-// TEAMS
-// ===================
-
-function updateTeams(){
-
-    const home =
-        document.getElementById("homeTeam");
-
-    const away =
-        document.getElementById("awayTeam");
-
-    if(home)
-        scoreboard.homeTeam = home.value;
-
-    if(away)
-        scoreboard.awayTeam = away.value;
+    scoreboard.competition =
+        document.getElementById("competition").value;
 
     save();
 
 }
 
-// ===================
-// HOME SCORE
-// ===================
+// ========================
+// TEAMS
+// ========================
 
-function homePlus(){
+function updateTeams() {
+
+    scoreboard.homeTeam =
+        document.getElementById("homeTeam").value;
+
+    scoreboard.awayTeam =
+        document.getElementById("awayTeam").value;
+
+    save();
+
+}
+
+// ========================
+// SCORES
+// ========================
+
+function homePlus() {
 
     scoreboard.homeScore++;
 
@@ -160,20 +148,16 @@ function homePlus(){
 
 }
 
-function homeMinus(){
+function homeMinus() {
 
-    if(scoreboard.homeScore>0)
+    if (scoreboard.homeScore > 0)
         scoreboard.homeScore--;
 
     save();
 
 }
 
-// ===================
-// AWAY SCORE
-// ===================
-
-function awayPlus(){
+function awayPlus() {
 
     scoreboard.awayScore++;
 
@@ -181,20 +165,20 @@ function awayPlus(){
 
 }
 
-function awayMinus(){
+function awayMinus() {
 
-    if(scoreboard.awayScore>0)
+    if (scoreboard.awayScore > 0)
         scoreboard.awayScore--;
 
     save();
 
 }
 
-// ===================
+// ========================
 // MATCH STATUS
-// ===================
+// ========================
 
-function setStatus(status){
+function setStatus(status) {
 
     scoreboard.status = status;
 
@@ -202,31 +186,95 @@ function setStatus(status){
 
 }
 
-// ===================
+// ========================
 // GOAL
-// ===================
+// ========================
 
-function showGoal(){
+function showGoal() {
 
     scoreboard.goal = true;
 
     save();
 
-    setTimeout(()=>{
+    setTimeout(function () {
 
         scoreboard.goal = false;
 
         save();
 
-    },3000);
+    }, 3000);
 
 }
 
-// ===================
+// ========================
+// ADDED TIME
+// ========================
 
-window.onload=()=>{
+function updateAddedTime() {
 
-    formatTime();
+    const input = document.getElementById("addedTime");
+
+    if (input) {
+
+        scoreboard.addedTime = input.value;
+
+        save();
+
+    }
+
+}
+
+// ========================
+// LOGOS
+// ========================
+
+function updateTournamentLogo() {
+
+    const input = document.getElementById("tournamentLogo");
+
+    if (input) {
+
+        scoreboard.tournamentLogo = input.value;
+
+        save();
+
+    }
+
+}
+
+function updateHomeLogo() {
+
+    const input = document.getElementById("homeLogo");
+
+    if (input) {
+
+        scoreboard.homeLogo = input.value;
+
+        save();
+
+    }
+
+}
+
+function updateAwayLogo() {
+
+    const input = document.getElementById("awayLogo");
+
+    if (input) {
+
+        scoreboard.awayLogo = input.value;
+
+        save();
+
+    }
+
+}
+
+// ========================
+
+window.onload = function () {
+
+    updateDisplayTime();
 
     save();
 
