@@ -12,45 +12,85 @@
 
 <body>
 
-<div id="header">
+<!-- TOP HEADER -->
+<div id="topBar">
 
-    <div id="competitionTitle">
-        🏆 VRFS WORLD CUP
+    <div id="competitionArea">
+        <div id="competitionTitle">VRFS WORLD CUP</div>
     </div>
 
-    <div id="logoHolder">
-        <img id="vrfsLogo" src="vrfs-logo.png" alt="VRFS">
+    <div id="logoArea">
+        <img id="vrfsLogo" src="vrfs-logo.png" alt="VRFS Logo">
     </div>
 
 </div>
 
+<!-- SCOREBOARD -->
 <div id="scoreboard">
 
-    <div class="team left">
+    <!-- HOME -->
+    <div class="team">
+
+        <img id="homeLogo"
+             class="teamLogo"
+             src="images/default-home.png"
+             alt="Home">
+
         <div id="homeTeam">HOME</div>
+
     </div>
 
+    <!-- SCORE -->
     <div class="scoreBox">
+
         <span id="homeScore">0</span>
+
         <span class="divider">-</span>
+
         <span id="awayScore">0</span>
+
     </div>
 
-    <div class="team right">
+    <!-- AWAY -->
+    <div class="team">
+
         <div id="awayTeam">AWAY</div>
+
+        <img id="awayLogo"
+             class="teamLogo"
+             src="images/default-away.png"
+             alt="Away">
+
     </div>
 
 </div>
 
+<!-- MATCH INFO -->
 <div id="matchInfo">
 
     <div id="timer">00:00</div>
 
     <div id="matchStatus">1ST HALF</div>
 
+    <div id="addedTime">+0</div>
+
 </div>
 
-<div id="goalBanner">⚽ GOAL!</div>
+<!-- GOAL -->
+<div id="goalBanner">
+
+    ⚽ GOAL!
+
+</div>
+
+<!-- FUTURE -->
+<div id="goalScorer"></div>
+
+<div id="yellowCard"></div>
+
+<div id="redCard"></div>
+
+<div id="subBanner"></div>
 
 <script src="overlay.js"></script>
 
