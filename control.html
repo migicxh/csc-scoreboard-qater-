@@ -1,89 +1,50 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VRFS Scoreboard Control</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VRFS Control</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
-body{background:linear-gradient(135deg,#2b0048,#140021,#0b0d18);color:#fff;padding:14px}
-h1{text-align:center;font-size:26px;margin-bottom:14px;color:#FFD54F}
-.panel{max-width:920px;margin:auto}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.section{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px}
+body{background:#120021;background:linear-gradient(135deg,#2b0048,#120021,#0b0d18);color:#fff;padding:10px}
+h1{text-align:center;font-size:22px;color:#ffd54f;margin-bottom:10px}
+.panel{max-width:980px;margin:auto}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.section{background:rgba(255,255,255,.07);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
 .full{grid-column:1/-1}
-h2{font-size:14px;margin-bottom:8px;color:#FFD54F}
-input{width:100%;padding:9px;border:none;border-radius:8px;background:#2b2d45;color:#fff;margin-bottom:8px}
-button{border:none;border-radius:8px;padding:10px 12px;font-weight:700;cursor:pointer}
-.controls{display:flex;gap:8px;flex-wrap:wrap}
-.controls button{flex:1}
-.blue{background:#1976d2;color:#fff}.green{background:#17a34a;color:#fff}.red{background:#d32f2f;color:#fff}.orange{background:#ef6c00;color:#fff}
-.goalButton{width:100%;font-size:18px;padding:12px}
-@media(max-width:800px){.grid{grid-template-columns:1fr}}
+h2{font-size:12px;color:#ffd54f;margin-bottom:6px}
+input{width:100%;padding:7px;border:none;border-radius:6px;background:#2b2d45;color:#fff;margin-bottom:6px;font-size:12px}
+button{width:100%;padding:8px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.blue{background:#1976d2;color:#fff}.green{background:#1faa59;color:#fff}.red{background:#d32f2f;color:#fff}.orange{background:#ef6c00;color:#fff}
+.goal{font-size:15px;padding:10px}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.timer{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<h1>🏆 VRFS Scoreboard Control</h1>
+<h1>🏆 VRFS SCOREBOARD CONTROL</h1>
 <div class="panel"><div class="grid">
 
-<div class="section full"><h2>Competition</h2>
-<input id="competition" placeholder="VRFS WORLD CUP">
-<button class="blue" onclick="updateCompetition()">Update Competition</button></div>
+<div class="section"><h2>Competition</h2><input id="competition"><button class="blue" onclick="updateCompetition()">Update</button></div>
+<div class="section"><h2>Home Team</h2><input id="homeTeam"><button class="blue" onclick="updateTeams()">Update</button></div>
+<div class="section"><h2>Away Team</h2><input id="awayTeam"><button class="blue" onclick="updateTeams()">Update</button></div>
 
-<div class="section"><h2>Home Team</h2>
-<input id="homeTeam" placeholder="Home Team">
-<button class="blue" onclick="updateTeams()">Update Team</button></div>
+<div class="section"><h2>Tournament Logo</h2><input id="tournamentLogo"><button class="blue" onclick="updateTournamentLogo()">Update</button></div>
+<div class="section"><h2>Home Logo</h2><input id="homeLogo"><button class="blue" onclick="updateHomeLogo()">Update</button></div>
+<div class="section"><h2>Away Logo</h2><input id="awayLogo"><button class="blue" onclick="updateAwayLogo()">Update</button></div>
 
-<div class="section"><h2>Away Team</h2>
-<input id="awayTeam" placeholder="Away Team">
-<button class="blue" onclick="updateTeams()">Update Team</button></div>
+<div class="section"><h2>Added Time</h2><input id="addedTime"><button class="orange" onclick="updateAddedTime()">Update</button></div>
+<div class="section"><h2>Home Score</h2><div class="controls"><button class="green" onclick="homePlus()">+1</button><button class="red" onclick="homeMinus()">-1</button></div></div>
+<div class="section"><h2>Away Score</h2><div class="controls"><button class="green" onclick="awayPlus()">+1</button><button class="red" onclick="awayMinus()">-1</button></div></div>
 
-<div class="section"><h2>Tournament Logo</h2>
-<input id="tournamentLogo" placeholder="images/logo.png">
-<button class="blue" onclick="updateTournamentLogo()">Update Logo</button></div>
+<div class="section full"><h2>Timer</h2><div class="timer"><button class="green" onclick="startTimer()">▶ Start</button><button class="blue" onclick="pauseTimer()">⏸ Pause</button><button class="red" onclick="resetTimer()">↺ Reset</button></div></div>
 
-<div class="section"><h2>Added Time</h2>
-<input id="addedTime" placeholder="+5">
-<button class="orange" onclick="updateAddedTime()">Update</button></div>
-
-<div class="section"><h2>Home Logo</h2>
-<input id="homeLogo" placeholder="images/home.png">
-<button class="blue" onclick="updateHomeLogo()">Update Logo</button></div>
-
-<div class="section"><h2>Away Logo</h2>
-<input id="awayLogo" placeholder="images/away.png">
-<button class="blue" onclick="updateAwayLogo()">Update Logo</button></div>
-
-<div class="section"><h2>Home Score</h2>
-<div class="controls">
-<button class="green" onclick="homePlus()">+1</button>
-<button class="red" onclick="homeMinus()">-1</button>
-</div></div>
-
-<div class="section"><h2>Away Score</h2>
-<div class="controls">
-<button class="green" onclick="awayPlus()">+1</button>
-<button class="red" onclick="awayMinus()">-1</button>
-</div></div>
-
-<div class="section full"><h2>Match Timer</h2>
-<div class="controls">
-<button class="green" onclick="startTimer()">▶ Start</button>
-<button class="blue" onclick="pauseTimer()">⏸ Pause</button>
-<button class="red" onclick="resetTimer()">↺ Reset</button>
-</div></div>
-
-<div class="section"><h2>Goal</h2>
-<button class="orange goalButton" onclick="showGoal()">⚽ GOAL</button></div>
-
-<div class="section"><h2>Match Status</h2>
-<div class="controls">
-<button onclick="setStatus('1ST HALF')">1ST</button>
-<button onclick="setStatus('HALFTIME')">HT</button>
-<button onclick="setStatus('2ND HALF')">2ND</button>
-<button onclick="setStatus('FULLTIME')">FT</button>
-</div></div>
+<div class="section"><h2>Goal</h2><button class="orange goal" onclick="showGoal()">⚽ GOAL</button></div>
+<div class="section full"><h2>Status</h2><div class="status"><button onclick="setStatus('1ST HALF')">1ST</button><button onclick="setStatus('HALFTIME')">HT</button><button onclick="setStatus('2ND HALF')">2ND</button><button onclick="setStatus('FULLTIME')">FT</button></div></div>
 
 </div></div>
 <script src="control.js"></script>
