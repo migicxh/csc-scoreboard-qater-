@@ -13,37 +13,50 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+font-family:"Segoe UI",Arial,Helvetica,sans-serif;
 }
 
 body{
-background:#111318;
+background:linear-gradient(135deg,#2b0048,#140021,#0b0d18);
 color:white;
-padding:20px;
+min-height:100vh;
+padding:30px;
 }
 
 h1{
 text-align:center;
-margin-bottom:20px;
-font-size:32px;
+font-size:42px;
+margin-bottom:30px;
+font-weight:700;
+letter-spacing:1px;
+color:#fff;
+text-shadow:0 0 20px rgba(255,215,0,.3);
 }
 
 .panel{
-max-width:1200px;
+max-width:1450px;
 margin:auto;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:15px;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:22px;
 }
 
 .section{
-background:#1d2028;
-padding:18px;
-border-radius:12px;
-box-shadow:0 4px 10px rgba(0,0,0,.35);
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+padding:22px;
+backdrop-filter:blur(12px);
+box-shadow:0 12px 25px rgba(0,0,0,.35);
+transition:.25s;
+}
+
+.section:hover{
+transform:translateY(-4px);
+box-shadow:0 18px 35px rgba(0,0,0,.45);
 }
 
 .section.full{
@@ -51,65 +64,119 @@ grid-column:1/-1;
 }
 
 .section h2{
-margin-bottom:10px;
-font-size:18px;
+margin-bottom:15px;
+font-size:20px;
+color:#FFD54F;
+letter-spacing:1px;
+text-transform:uppercase;
 }
 
 input{
 width:100%;
-padding:12px;
+padding:15px;
+margin-bottom:15px;
 border:none;
-border-radius:8px;
-background:#2b303b;
+border-radius:12px;
+background:#2b2d45;
 color:white;
-margin-bottom:10px;
-font-size:15px;
+font-size:16px;
+outline:none;
+transition:.2s;
+}
+
+input:focus{
+background:#36395a;
+box-shadow:0 0 0 2px #FFD54F;
 }
 
 button{
-padding:12px;
+padding:16px;
 border:none;
-border-radius:8px;
+border-radius:12px;
 cursor:pointer;
 font-weight:bold;
+font-size:17px;
 transition:.2s;
 }
 
 button:hover{
-transform:scale(1.03);
+transform:scale(1.04);
+filter:brightness(1.08);
+}
+
+button:active{
+transform:scale(.98);
+}
+
+.blue{
+background:linear-gradient(135deg,#42a5f5,#1565c0);
+color:white;
 }
 
 .green{
-background:#28a745;
+background:linear-gradient(135deg,#00c853,#009624);
 color:white;
 }
 
 .red{
-background:#dc3545;
-color:white;
-}
-
-.blue{
-background:#007bff;
+background:linear-gradient(135deg,#ff5252,#c62828);
 color:white;
 }
 
 .orange{
-background:#ff9800;
+background:linear-gradient(135deg,#ffb300,#ef6c00);
 color:white;
 }
 
 .controls{
 display:flex;
-gap:10px;
+gap:12px;
 flex-wrap:wrap;
 }
+
+.controls button{
+flex:1;
+padding:18px;
+font-size:20px;
+}
+
+.goalButton{
+width:100%;
+padding:25px;
+font-size:32px;
+}
+
+.status button{
+min-width:110px;
+}
+
+@media(max-width:700px){
+
+body{
+padding:15px;
+}
+
+h1{
+font-size:30px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+button{
+width:100%;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<h1>VRFS Scoreboard Control</h1>
+<h1>🏆 VRFS Scoreboard Control</h1>
 
 <div class="panel">
 <div class="grid">
@@ -130,7 +197,7 @@ Update Competition
 <input id="homeTeam" placeholder="Home Team">
 
 <button class="blue" onclick="updateTeams()">
-Update Teams
+Update Team
 </button>
 </div>
 
@@ -140,20 +207,16 @@ Update Teams
 <input id="awayTeam" placeholder="Away Team">
 
 <button class="blue" onclick="updateTeams()">
-Update Teams
+Update Team
 </button>
 </div>
 
 <div class="section">
 <h2>Tournament Logo</h2>
 
-<input
-id="tournamentLogo"
-placeholder="images/vrfs-logo.png">
+<input id="tournamentLogo" placeholder="images/vrfs-logo.png">
 
-<button
-class="blue"
-onclick="updateTournamentLogo()">
+<button class="blue" onclick="updateTournamentLogo()">
 Update Logo
 </button>
 </div>
@@ -161,13 +224,9 @@ Update Logo
 <div class="section">
 <h2>Home Logo</h2>
 
-<input
-id="homeLogo"
-placeholder="images/home.png">
+<input id="homeLogo" placeholder="images/home.png">
 
-<button
-class="blue"
-onclick="updateHomeLogo()">
+<button class="blue" onclick="updateHomeLogo()">
 Update Logo
 </button>
 </div>
@@ -175,28 +234,18 @@ Update Logo
 <div class="section">
 <h2>Away Logo</h2>
 
-<input
-id="awayLogo"
-placeholder="images/away.png">
+<input id="awayLogo" placeholder="images/away.png">
 
-<button
-class="blue"
-onclick="updateAwayLogo()">
+<button class="blue" onclick="updateAwayLogo()">
 Update Logo
 </button>
-</div>
-
-<div class="section">
+</div><div class="section">
 <h2>Added Time</h2>
 
-<input
-id="addedTime"
-placeholder="+5">
+<input id="addedTime" placeholder="+5">
 
-<button
-class="orange"
-onclick="updateAddedTime()">
-Update
+<button class="orange" onclick="updateAddedTime()">
+Update Added Time
 </button>
 </div>
 
@@ -204,8 +253,8 @@ Update
 <h2>Home Score</h2>
 
 <div class="controls">
-<button class="green" onclick="homePlus()">+</button>
-<button class="red" onclick="homeMinus()">−</button>
+<button class="green" onclick="homePlus()">➕ Goal</button>
+<button class="red" onclick="homeMinus()">➖ Undo</button>
 </div>
 </div>
 
@@ -213,35 +262,27 @@ Update
 <h2>Away Score</h2>
 
 <div class="controls">
-<button class="green" onclick="awayPlus()">+</button>
-<button class="red" onclick="awayMinus()">−</button>
+<button class="green" onclick="awayPlus()">➕ Goal</button>
+<button class="red" onclick="awayMinus()">➖ Undo</button>
 </div>
 </div>
 
 <div class="section full">
-<h2>Timer</h2>
+<h2>⏱ Match Timer</h2>
 
 <div class="controls">
-<button class="green" onclick="startTimer()">
-▶ Start
-</button>
+<button class="green" onclick="startTimer()">▶ START</button>
 
-<button class="blue" onclick="pauseTimer()">
-⏸ Pause
-</button>
+<button class="blue" onclick="pauseTimer()">⏸ PAUSE</button>
 
-<button class="red" onclick="resetTimer()">
-↺ Reset
-</button>
+<button class="red" onclick="resetTimer()">↺ RESET</button>
 </div>
 </div>
 
 <div class="section">
-<h2>Goal</h2>
+<h2>Goal Animation</h2>
 
-<button
-class="orange"
-onclick="showGoal()">
+<button class="orange goalButton" onclick="showGoal()">
 ⚽ GOAL
 </button>
 </div>
@@ -249,13 +290,15 @@ onclick="showGoal()">
 <div class="section">
 <h2>Match Status</h2>
 
-<div class="controls">
-<button onclick="setStatus('1ST HALF')">1ST</button>
-<button onclick="setStatus('HALFTIME')">HT</button>
-<button onclick="setStatus('2ND HALF')">2ND</button>
-<button onclick="setStatus('FULLTIME')">FT</button>
+<div class="controls status">
+<button onclick="setStatus('1ST HALF')">1ST HALF</button>
+<button onclick="setStatus('HALFTIME')">HALFTIME</button>
+<button onclick="setStatus('2ND HALF')">2ND HALF</button>
+<button onclick="setStatus('FULLTIME')">FULLTIME</button>
 </div>
-</div></div>
+</div>
+
+</div>
 </div>
 
 <script src="control.js"></script>
